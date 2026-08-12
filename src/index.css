@@ -1,9 +1,65 @@
+/* src/index.css */
+
+:root {
+  --cf-bg:          #0e1013;
+  --cf-surface:     #16191d;
+  --cf-surface-2:   #1d2126;
+  --cf-inset:       #0a0c0e;
+
+  --cf-border:      #2a2f36;
+  --cf-border-2:    #363c44;
+
+  --cf-text:        #e6e9ec;
+  --cf-text-muted:  #9aa4af;
+  --cf-text-dim:    #6b747d;
+
+  --cf-accent:      #f26a3d;
+  --cf-accent-2:    #ff8256;
+
+  --cf-ok:          #3fb27f;
+  --cf-warn:        #d9a441;
+  --cf-error:       #d9534f;
+  --cf-info:        #4a90d9;
+
+  --cf-font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --cf-font-mono: "JetBrains Mono", "Consolas", "Courier New", monospace;
+
+  --cf-space-1: 4px;
+  --cf-space-2: 8px;
+  --cf-space-3: 12px;
+  --cf-space-4: 16px;
+  --cf-space-5: 24px;
+  --cf-space-6: 32px;
+  --cf-space-7: 48px;
+
+  --cf-radius-sm: 3px;
+  --cf-radius:    5px;
+  --cf-radius-lg: 8px;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+}
+
 body {
-  font-family: system-ui, sans-serif;
+  background: var(--cf-bg);
+  color: var(--cf-text);
+  font-family: var(--cf-font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cf-accent);
+  outline-offset: 2px;
 }

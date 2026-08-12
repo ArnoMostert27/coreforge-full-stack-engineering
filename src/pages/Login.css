@@ -1,0 +1,124 @@
+/* src/pages/Login.css */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cf-bg);
+  padding: var(--cf-space-4);
+}
+
+.login-panel {
+  width: 100%;
+  max-width: 380px;
+  background: var(--cf-surface);
+  border: 1px solid var(--cf-border);
+  border-radius: var(--cf-radius);
+  padding: var(--cf-space-6);
+}
+
+.login-brand {
+  display: flex;
+  align-items: baseline;
+  gap: var(--cf-space-2);
+  margin-bottom: var(--cf-space-6);
+}
+
+.login-brand-mark {
+  font-family: var(--cf-font-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--cf-accent);
+  border: 1px solid var(--cf-accent);
+  border-radius: var(--cf-radius-sm);
+  padding: 2px 6px;
+}
+
+.login-brand-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--cf-text);
+  letter-spacing: 0.5px;
+}
+
+.login-title {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--cf-text-dim);
+  margin-bottom: var(--cf-space-5);
+}
+
+.login-field {
+  margin-bottom: var(--cf-space-4);
+}
+
+.login-label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cf-text-muted);
+  margin-bottom: var(--cf-space-2);
+}
+
+.login-input {
+  width: 100%;
+  background: var(--cf-inset);
+  border: 1px solid var(--cf-border);
+  border-radius: var(--cf-radius-sm);
+  padding: 10px 12px;
+  color: var(--cf-text);
+  font-family: var(--cf-font-sans);
+  font-size: 14px;
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: var(--cf-accent);
+}
+
+.login-button {
+  width: 100%;
+  margin-top: var(--cf-space-2);
+  background: var(--cf-accent);
+  color: #0e1013;
+  border: none;
+  border-radius: var(--cf-radius-sm);
+  padding: 11px;
+  font-family: var(--cf-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.login-button:hover {
+  background: var(--cf-accent-2);
+}
+
+.login-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.login-error {
+  background: rgba(217, 83, 79, 0.1);
+  border: 1px solid var(--cf-error);
+  border-radius: var(--cf-radius-sm);
+  color: var(--cf-error);
+  font-size: 12px;
+  padding: 8px 10px;
+  margin-bottom: var(--cf-space-4);
+}
+
+.login-footer {
+  margin-top: var(--cf-space-5);
+  font-family: var(--cf-font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--cf-text-dim);
+  text-align: center;
+}
