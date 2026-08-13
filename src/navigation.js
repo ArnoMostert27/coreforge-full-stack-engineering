@@ -29,7 +29,7 @@ export const NAV_SECTIONS = [
     section: "Core",
     items: [
       { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard, ready: true },
-      { to: "/team", label: "Team", icon: Users, ready: false },
+      { to: "/team", label: "Team", icon: Users, ready: true },
     ],
   },
   {

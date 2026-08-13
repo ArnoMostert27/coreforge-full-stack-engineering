@@ -1,0 +1,112 @@
+/* src/pages/Team.css */
+
+.team-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--cf-space-5);
+}
+
+.team-count {
+  font-family: var(--cf-font-mono);
+  font-size: 11px;
+  color: var(--cf-text-dim);
+}
+
+.team-status {
+  color: var(--cf-text-muted);
+  font-size: 13px;
+  padding: var(--cf-space-4) 0;
+}
+
+.team-error {
+  color: var(--cf-error);
+}
+
+.team-empty {
+  background: var(--cf-surface);
+  border: 1px dashed var(--cf-border-2);
+  border-radius: var(--cf-radius);
+  color: var(--cf-text-muted);
+  font-size: 13px;
+  padding: var(--cf-space-6);
+  text-align: center;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--cf-space-4);
+}
+
+.team-card {
+  display: flex;
+  align-items: center;
+  gap: var(--cf-space-4);
+  background: var(--cf-surface);
+  border: 1px solid var(--cf-border);
+  border-radius: var(--cf-radius);
+  padding: var(--cf-space-4);
+}
+
+.team-avatar {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--cf-inset);
+  border: 1px solid var(--cf-border-2);
+  border-radius: var(--cf-radius-sm);
+  font-family: var(--cf-font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cf-accent);
+}
+
+.team-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.team-name {
+  display: flex;
+  align-items: center;
+  gap: var(--cf-space-2);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cf-text);
+}
+
+.team-you {
+  font-family: var(--cf-font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cf-text-dim);
+  border: 1px solid var(--cf-border-2);
+  border-radius: var(--cf-radius-sm);
+  padding: 1px 5px;
+}
+
+.team-email {
+  font-family: var(--cf-font-mono);
+  font-size: 11px;
+  color: var(--cf-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-role {
+  font-family: var(--cf-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cf-accent);
+  border: 1px solid var(--cf-accent);
+  border-radius: var(--cf-radius-sm);
+  padding: 2px 7px;
+  flex-shrink: 0;
+}
