@@ -10,6 +10,7 @@ import {
   updateTask,
   deleteTask,
 } from "../services/taskService";
+import { toInputValue, toDisplay } from "../utils/dates";
 import "../components/Modal.css";
 import "./Tasks.css";
 
@@ -27,6 +28,13 @@ const PRIORITY_OPTIONS = [
   { value: "high", label: "High" },
 ];
 
+const RECURRENCE_OPTIONS = [
+  { value: "none", label: "None" },
+  { value: "daily", label: "Daily" },
+  { value: "weekly", label: "Weekly" },
+  { value: "monthly", label: "Monthly" },
+];
+
 const EMPTY_FORM = {
   title: "",
   description: "",
@@ -34,14 +42,17 @@ const EMPTY_FORM = {
   status: "todo",
   priority: "medium",
   dueDate: "",
+  recurrence: "none",
 };
 
 function statusLabel(value) {
   return STATUS_OPTIONS.find((s) => s.value === value)?.label || value;
 }
-
 function priorityLabel(value) {
   return PRIORITY_OPTIONS.find((p) => p.value === value)?.label || value;
+}
+function recurrenceLabel(value) {
+  return RECURRENCE_OPTIONS.find((r) => r.value === value)?.label || "None";
 }
 
 function Tasks() {
@@ -52,13 +63,13 @@ function Tasks() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const [modalMode, setModalMode] = useState(null); // "create" | "edit" | null
+  const [modalMode, setModalMode] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState("");
 
-  const [deleteTarget, setDeleteTarget] = useState(null); // { id, title }
+  const [deleteTarget, setDeleteTarget] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
   async function loadAll() {
@@ -104,7 +115,8 @@ function Tasks() {
       projectId: task.projectId || "",
       status: task.status || "todo",
       priority: task.priority || "medium",
-      dueDate: task.dueDate || "",
+      dueDate: toInputValue(task.dueDate),
+      recurrence: task.recurrence || "none",
     });
     setFormError("");
   }
@@ -123,12 +135,10 @@ function Tasks() {
 
   async function handleSave() {
     setFormError("");
-
     if (!form.title.trim()) {
       setFormError("Task title is required.");
       return;
     }
-
     setSaving(true);
     try {
       if (modalMode === "edit" && editingId) {
@@ -151,12 +161,10 @@ function Tasks() {
   function askDelete(task) {
     setDeleteTarget({ id: task.id, title: task.title });
   }
-
   function cancelDelete() {
     if (deleting) return;
     setDeleteTarget(null);
   }
-
   async function confirmDelete() {
     if (!deleteTarget) return;
     setDeleting(true);
@@ -182,7 +190,6 @@ function Tasks() {
       </div>
 
       {loading && <div className="tasks-status">Loading tasks…</div>}
-
       {error && <div className="tasks-status tasks-error">{error}</div>}
 
       {!loading && !error && tasks.length === 0 && (
@@ -199,6 +206,7 @@ function Tasks() {
             <div className="tasks-cell tasks-cell-status">Status</div>
             <div className="tasks-cell tasks-cell-priority">Priority</div>
             <div className="tasks-cell tasks-cell-due">Due</div>
+            <div className="tasks-cell tasks-cell-recur">Recurs</div>
             <div className="tasks-cell tasks-cell-actions">Actions</div>
           </div>
 
@@ -219,13 +227,19 @@ function Tasks() {
                 </span>
               </div>
               <div className="tasks-cell tasks-cell-due">
-                {t.dueDate || "—"}
+                {toDisplay(t.dueDate)}
+              </div>
+              <div className="tasks-cell tasks-cell-recur">
+                {t.recurrence && t.recurrence !== "none" ? (
+                  <span className="tasks-recur-badge">
+                    {recurrenceLabel(t.recurrence)}
+                  </span>
+                ) : (
+                  "—"
+                )}
               </div>
               <div className="tasks-cell tasks-cell-actions">
-                <button
-                  className="tasks-action-btn"
-                  onClick={() => openEdit(t)}
-                >
+                <button className="tasks-action-btn" onClick={() => openEdit(t)}>
                   Edit
                 </button>
                 <button
@@ -240,7 +254,6 @@ function Tasks() {
         </div>
       )}
 
-      {/* ---- Create / Edit modal ---- */}
       {modalMode && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-panel" onClick={(e) => e.stopPropagation()}>
@@ -323,15 +336,33 @@ function Tasks() {
               </div>
             </div>
 
-            <div className="form-field">
-              <label className="form-label">Due Date</label>
-              <input
-                className="form-input"
-                type="date"
-                value={form.dueDate}
-                onChange={(e) => updateField("dueDate", e.target.value)}
-                disabled={saving}
-              />
+            <div className="form-row">
+              <div className="form-field">
+                <label className="form-label">Due Date</label>
+                <input
+                  className="form-input"
+                  type="date"
+                  value={form.dueDate}
+                  onChange={(e) => updateField("dueDate", e.target.value)}
+                  disabled={saving}
+                />
+              </div>
+
+              <div className="form-field">
+                <label className="form-label">Recurrence</label>
+                <select
+                  className="form-input"
+                  value={form.recurrence}
+                  onChange={(e) => updateField("recurrence", e.target.value)}
+                  disabled={saving}
+                >
+                  {RECURRENCE_OPTIONS.map((r) => (
+                    <option key={r.value} value={r.value}>
+                      {r.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             <div className="modal-actions">
@@ -358,7 +389,6 @@ function Tasks() {
         </div>
       )}
 
-      {/* ---- Delete confirmation ---- */}
       {deleteTarget && (
         <div className="modal-overlay" onClick={cancelDelete}>
           <div
@@ -371,7 +401,6 @@ function Tasks() {
               <span className="modal-emphasis">{deleteTarget.title}</span>? This
               action cannot be undone.
             </p>
-
             <div className="modal-actions">
               <button
                 className="modal-btn-secondary"

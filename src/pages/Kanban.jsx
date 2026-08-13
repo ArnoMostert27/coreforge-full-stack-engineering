@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import AppLayout from "../components/AppLayout";
 import { listTasks, updateTaskStatus } from "../services/taskService";
 import { listProjects } from "../services/projectService";
+import { toDisplay } from "../utils/dates";
 import "./Kanban.css";
 
 const COLUMNS = [
@@ -52,12 +53,10 @@ function Kanban() {
   function handleDragStart(taskId) {
     setDragId(taskId);
   }
-
   function handleDragEnd() {
     setDragId(null);
     setOverColumn(null);
   }
-
   function handleDragOver(e, columnKey) {
     e.preventDefault();
     if (overColumn !== columnKey) setOverColumn(columnKey);
@@ -73,13 +72,18 @@ function Kanban() {
     const task = tasks.find((t) => t.id === taskId);
     if (!task || task.status === columnKey) return;
 
-    // Optimistic update.
+    // Optimistic move.
     setTasks((prev) =>
       prev.map((t) => (t.id === taskId ? { ...t, status: columnKey } : t))
     );
 
     try {
-      await updateTaskStatus(taskId, columnKey);
+      // Pass the full task so recurrence can regenerate on completion.
+      await updateTaskStatus(task, columnKey);
+      // If it became done and was recurring, a new task now exists — reload.
+      if (columnKey === "done" && task.recurrence && task.recurrence !== "none") {
+        await loadAll();
+      }
     } catch (err) {
       console.error(err);
       setError("Could not move task. Refreshing…");
@@ -94,7 +98,6 @@ function Kanban() {
       </div>
 
       {loading && <div className="kanban-status">Loading board…</div>}
-
       {error && <div className="kanban-status kanban-error">{error}</div>}
 
       {!loading && !error && (
@@ -105,8 +108,7 @@ function Kanban() {
               <div
                 key={col.key}
                 className={
-                  "kanban-column" +
-                  (overColumn === col.key ? " is-over" : "")
+                  "kanban-column" + (overColumn === col.key ? " is-over" : "")
                 }
                 onDragOver={(e) => handleDragOver(e, col.key)}
                 onDrop={(e) => handleDrop(e, col.key)}
@@ -127,8 +129,7 @@ function Kanban() {
                     <div
                       key={t.id}
                       className={
-                        "kanban-card" +
-                        (dragId === t.id ? " is-dragging" : "")
+                        "kanban-card" + (dragId === t.id ? " is-dragging" : "")
                       }
                       draggable
                       onDragStart={() => handleDragStart(t.id)}
@@ -143,14 +144,18 @@ function Kanban() {
                           </span>
                         )}
                         <span
-                          className={"kanban-card-priority priority-" + t.priority}
+                          className={
+                            "kanban-card-priority priority-" + t.priority
+                          }
                         >
                           {t.priority}
                         </span>
                       </div>
 
                       {t.dueDate && (
-                        <div className="kanban-card-due">{t.dueDate}</div>
+                        <div className="kanban-card-due">
+                          {toDisplay(t.dueDate)}
+                        </div>
                       )}
                     </div>
                   ))}
