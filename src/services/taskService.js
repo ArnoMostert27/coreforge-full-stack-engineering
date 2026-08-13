@@ -16,7 +16,6 @@ import { db } from "../firebase";
 
 const tasksRef = collection(db, "tasks");
 
-// Create a new task document.
 export async function createTask(
   { title, description, projectId, status, priority, dueDate },
   createdBy
@@ -35,7 +34,6 @@ export async function createTask(
   return docRef.id;
 }
 
-// Fetch all tasks, newest first.
 export async function listTasks() {
   const q = query(tasksRef, orderBy("createdAt", "desc"));
   const snapshot = await getDocs(q);
@@ -43,7 +41,6 @@ export async function listTasks() {
   return snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
 }
 
-// Update an existing task.
 export async function updateTask(
   id,
   { title, description, projectId, status, priority, dueDate }
@@ -60,7 +57,15 @@ export async function updateTask(
   });
 }
 
-// Delete a task.
+// Update only the status of a task (used by the Kanban board).
+export async function updateTaskStatus(id, status) {
+  const ref = doc(db, "tasks", id);
+  await updateDoc(ref, {
+    status,
+    updatedAt: serverTimestamp(),
+  });
+}
+
 export async function deleteTask(id) {
   const ref = doc(db, "tasks", id);
   await deleteDoc(ref);

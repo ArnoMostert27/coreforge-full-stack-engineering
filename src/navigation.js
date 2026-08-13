@@ -1,7 +1,5 @@
 // src/navigation.js
 // LOCKED navigation structure for CoreForge V1.
-// Do not add, remove, or reorder items without an explicit decision.
-// Items with ready:true are implemented; others render <ComingSoon />.
 
 import {
   LayoutDashboard,
@@ -39,7 +37,7 @@ export const NAV_SECTIONS = [
     items: [
       { to: "/projects", label: "Projects", icon: FolderKanban, ready: true },
       { to: "/tasks", label: "Tasks", icon: ListChecks, ready: true },
-      { to: "/kanban", label: "Kanban", icon: Columns3, ready: false },
+      { to: "/kanban", label: "Kanban", icon: Columns3, ready: true },
       { to: "/milestones", label: "Milestones", icon: Flag, ready: false },
     ],
   },

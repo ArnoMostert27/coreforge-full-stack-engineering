@@ -1,6 +1,5 @@
 // src/App.jsx
-// All V1 routes. Dashboard, Projects, and Tasks are implemented; every other
-// module route renders the shared ComingSoon view inside the app shell.
+// Implemented: Dashboard, Projects, Tasks, Kanban. Others render ComingSoon.
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -10,16 +9,16 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Projects from "./pages/Projects";
 import Tasks from "./pages/Tasks";
+import Kanban from "./pages/Kanban";
 import { NAV_SECTIONS } from "./navigation";
 
-// Implemented modules get real components; everything else is ComingSoon.
 const IMPLEMENTED = {
   "/dashboard": Dashboard,
   "/projects": Projects,
   "/tasks": Tasks,
+  "/kanban": Kanban,
 };
 
-// Every nav route that isn't implemented renders ComingSoon.
 const comingSoonRoutes = NAV_SECTIONS.flatMap((group) =>
   group.items.map((item) => item.to).filter((to) => !IMPLEMENTED[to])
 );
@@ -29,7 +28,6 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
-
         <Route path="/login" element={<Login />} />
 
         <Route
@@ -40,7 +38,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/projects"
           element={
@@ -49,12 +46,19 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/tasks"
           element={
             <ProtectedRoute>
               <Tasks />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/kanban"
+          element={
+            <ProtectedRoute>
+              <Kanban />
             </ProtectedRoute>
           }
         />
