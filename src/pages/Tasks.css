@@ -1,13 +1,13 @@
-/* src/pages/Projects.css */
+/* src/pages/Tasks.css */
 
-.projects-head {
+.tasks-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: var(--cf-space-5);
 }
 
-.projects-new-btn {
+.tasks-new-btn {
   background: var(--cf-accent);
   color: #0e1013;
   border: none;
@@ -21,22 +21,22 @@
   cursor: pointer;
 }
 
-.projects-new-btn:hover {
+.tasks-new-btn:hover {
   background: var(--cf-accent-2);
 }
 
 /* ---- States ---- */
-.projects-status {
+.tasks-status {
   color: var(--cf-text-muted);
   font-size: 13px;
   padding: var(--cf-space-4) 0;
 }
 
-.projects-error {
+.tasks-error {
   color: var(--cf-error);
 }
 
-.projects-empty {
+.tasks-empty {
   background: var(--cf-surface);
   border: 1px dashed var(--cf-border-2);
   border-radius: var(--cf-radius);
@@ -47,27 +47,27 @@
 }
 
 /* ---- Table ---- */
-.projects-table {
+.tasks-table {
   border: 1px solid var(--cf-border);
   border-radius: var(--cf-radius);
   overflow: hidden;
 }
 
-.projects-row {
+.tasks-row {
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--cf-border);
 }
 
-.projects-row:last-child {
+.tasks-row:last-child {
   border-bottom: none;
 }
 
-.projects-row-header {
+.tasks-row-header {
   background: var(--cf-surface-2);
 }
 
-.projects-row-header .projects-cell {
+.tasks-row-header .tasks-cell {
   font-family: var(--cf-font-mono);
   font-size: 10px;
   text-transform: uppercase;
@@ -75,41 +75,54 @@
   color: var(--cf-text-dim);
 }
 
-.projects-row:not(.projects-row-header):hover {
+.tasks-row:not(.tasks-row-header):hover {
   background: var(--cf-surface);
 }
 
-.projects-cell {
+.tasks-cell {
   padding: 11px var(--cf-space-4);
   font-size: 13px;
   color: var(--cf-text);
 }
 
-.projects-cell-name {
-  flex: 0 0 200px;
+.tasks-cell-title {
+  flex: 1;
+  min-width: 160px;
   font-weight: 500;
 }
 
-.projects-cell-status {
-  flex: 0 0 120px;
-}
-
-.projects-cell-desc {
-  flex: 1;
+.tasks-cell-project {
+  flex: 0 0 150px;
   color: var(--cf-text-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.projects-cell-actions {
+.tasks-cell-status {
+  flex: 0 0 120px;
+}
+
+.tasks-cell-priority {
+  flex: 0 0 100px;
+}
+
+.tasks-cell-due {
+  flex: 0 0 110px;
+  font-family: var(--cf-font-mono);
+  font-size: 12px;
+  color: var(--cf-text-muted);
+}
+
+.tasks-cell-actions {
   flex: 0 0 160px;
   display: flex;
   gap: var(--cf-space-2);
   justify-content: flex-end;
 }
 
-.projects-badge {
+/* ---- Status badge ---- */
+.tasks-badge {
   display: inline-block;
   font-family: var(--cf-font-mono);
   font-size: 10px;
@@ -121,22 +134,62 @@
   color: var(--cf-text-muted);
 }
 
-.projects-badge.status-active {
-  color: var(--cf-ok);
-  border-color: var(--cf-ok);
+.tasks-badge.status-backlog {
+  color: var(--cf-text-dim);
+  border-color: var(--cf-border-2);
 }
 
-.projects-badge.status-on-hold {
-  color: var(--cf-warn);
-  border-color: var(--cf-warn);
-}
-
-.projects-badge.status-completed {
+.tasks-badge.status-todo {
   color: var(--cf-info);
   border-color: var(--cf-info);
 }
 
-.projects-action-btn {
+.tasks-badge.status-in-progress {
+  color: var(--cf-warn);
+  border-color: var(--cf-warn);
+}
+
+.tasks-badge.status-review {
+  color: var(--cf-accent);
+  border-color: var(--cf-accent);
+}
+
+.tasks-badge.status-done {
+  color: var(--cf-ok);
+  border-color: var(--cf-ok);
+}
+
+/* ---- Priority ---- */
+.tasks-priority {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--cf-text-muted);
+}
+
+.tasks-priority::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cf-text-dim);
+}
+
+.tasks-priority.priority-low::before {
+  background: var(--cf-text-dim);
+}
+
+.tasks-priority.priority-medium::before {
+  background: var(--cf-warn);
+}
+
+.tasks-priority.priority-high::before {
+  background: var(--cf-error);
+}
+
+/* ---- Action buttons ---- */
+.tasks-action-btn {
   background: transparent;
   border: 1px solid var(--cf-border-2);
   border-radius: var(--cf-radius-sm);
@@ -150,12 +203,12 @@
   cursor: pointer;
 }
 
-.projects-action-btn:hover {
+.tasks-action-btn:hover {
   color: var(--cf-accent);
   border-color: var(--cf-accent);
 }
 
-.projects-action-danger:hover {
+.tasks-action-danger:hover {
   color: var(--cf-error);
   border-color: var(--cf-error);
 }

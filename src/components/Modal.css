@@ -1,0 +1,165 @@
+/* src/components/Modal.css */
+/* Shared modal styles used across CoreForge modules. */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--cf-space-4);
+  z-index: 100;
+}
+
+.modal-panel {
+  width: 100%;
+  max-width: 480px;
+  background: var(--cf-surface);
+  border: 1px solid var(--cf-border-2);
+  border-radius: var(--cf-radius);
+  padding: var(--cf-space-5);
+}
+
+.modal-panel-sm {
+  max-width: 400px;
+}
+
+.modal-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cf-text);
+  margin-bottom: var(--cf-space-5);
+}
+
+.modal-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--cf-text-muted);
+  margin-bottom: var(--cf-space-5);
+}
+
+.modal-emphasis {
+  color: var(--cf-text);
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--cf-space-3);
+}
+
+.modal-btn-secondary {
+  background: transparent;
+  border: 1px solid var(--cf-border-2);
+  border-radius: var(--cf-radius-sm);
+  color: var(--cf-text);
+  font-family: var(--cf-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.modal-btn-secondary:hover {
+  border-color: var(--cf-text-muted);
+}
+
+.modal-btn-primary {
+  background: var(--cf-accent);
+  color: #0e1013;
+  border: none;
+  border-radius: var(--cf-radius-sm);
+  font-family: var(--cf-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.modal-btn-primary:hover {
+  background: var(--cf-accent-2);
+}
+
+.modal-btn-danger {
+  background: var(--cf-error);
+  color: #0e1013;
+  border: none;
+  border-radius: var(--cf-radius-sm);
+  font-family: var(--cf-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.modal-btn-danger:hover {
+  opacity: 0.85;
+}
+
+.modal-btn-primary:disabled,
+.modal-btn-secondary:disabled,
+.modal-btn-danger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Shared form field styles for modals. */
+.form-field {
+  margin-bottom: var(--cf-space-4);
+}
+
+.form-label {
+  display: block;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cf-text-muted);
+  margin-bottom: var(--cf-space-2);
+}
+
+.form-input {
+  width: 100%;
+  background: var(--cf-inset);
+  border: 1px solid var(--cf-border);
+  border-radius: var(--cf-radius-sm);
+  padding: 9px 11px;
+  color: var(--cf-text);
+  font-family: var(--cf-font-sans);
+  font-size: 13px;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--cf-accent);
+}
+
+.form-textarea {
+  resize: vertical;
+}
+
+.form-error {
+  background: rgba(217, 83, 79, 0.1);
+  border: 1px solid var(--cf-error);
+  border-radius: var(--cf-radius-sm);
+  color: var(--cf-error);
+  font-size: 12px;
+  padding: 8px 10px;
+  margin-bottom: var(--cf-space-4);
+}
+
+.form-row {
+  display: flex;
+  gap: var(--cf-space-4);
+}
+
+.form-row .form-field {
+  flex: 1;
+}

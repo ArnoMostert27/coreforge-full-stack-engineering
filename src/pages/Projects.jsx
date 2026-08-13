@@ -9,6 +9,7 @@ import {
   updateProject,
   deleteProject,
 } from "../services/projectService";
+import "../components/Modal.css";
 import "./Projects.css";
 
 const STATUS_OPTIONS = ["active", "on hold", "completed"];
@@ -22,15 +23,13 @@ function Projects() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Modal state: mode is "create", "edit", or null (closed).
   const [modalMode, setModalMode] = useState(null);
   const [editingId, setEditingId] = useState(null);
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [formError, setFormError] = useState("");
 
-  // Delete confirmation state.
-  const [deleteTarget, setDeleteTarget] = useState(null); // { id, name }
+  const [deleteTarget, setDeleteTarget] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
   async function loadProjects() {
@@ -202,12 +201,12 @@ function Projects() {
               {modalMode === "edit" ? "Edit Project" : "New Project"}
             </div>
 
-            {formError && <div className="projects-form-error">{formError}</div>}
+            {formError && <div className="form-error">{formError}</div>}
 
-            <div className="projects-field">
-              <label className="projects-label">Name</label>
+            <div className="form-field">
+              <label className="form-label">Name</label>
               <input
-                className="projects-input"
+                className="form-input"
                 value={form.name}
                 onChange={(e) => updateField("name", e.target.value)}
                 disabled={saving}
@@ -215,10 +214,10 @@ function Projects() {
               />
             </div>
 
-            <div className="projects-field">
-              <label className="projects-label">Description</label>
+            <div className="form-field">
+              <label className="form-label">Description</label>
               <textarea
-                className="projects-input projects-textarea"
+                className="form-input form-textarea"
                 value={form.description}
                 onChange={(e) => updateField("description", e.target.value)}
                 disabled={saving}
@@ -226,10 +225,10 @@ function Projects() {
               />
             </div>
 
-            <div className="projects-field">
-              <label className="projects-label">Status</label>
+            <div className="form-field">
+              <label className="form-label">Status</label>
               <select
-                className="projects-input"
+                className="form-input"
                 value={form.status}
                 onChange={(e) => updateField("status", e.target.value)}
                 disabled={saving}
