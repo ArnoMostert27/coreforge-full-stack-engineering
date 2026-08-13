@@ -1,5 +1,5 @@
 // src/App.jsx
-// Implemented: Dashboard, Projects, Tasks, Kanban, Milestones, Team, Clients.
+// Implemented: Dashboard, Projects, Tasks, Kanban, Milestones, Team, Clients, Contracts.
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -13,6 +13,7 @@ import Kanban from "./pages/Kanban";
 import Milestones from "./pages/Milestones";
 import Team from "./pages/Team";
 import Clients from "./pages/Clients";
+import Contracts from "./pages/Contracts";
 import { NAV_SECTIONS } from "./navigation";
 
 const IMPLEMENTED = {
@@ -23,6 +24,7 @@ const IMPLEMENTED = {
   "/milestones": Milestones,
   "/team": Team,
   "/clients": Clients,
+  "/contracts": Contracts,
 };
 
 const comingSoonRoutes = NAV_SECTIONS.flatMap((group) =>
@@ -36,62 +38,14 @@ function App() {
         <Route path="/" element={<Navigate to="/dashboard" replace />} />
         <Route path="/login" element={<Login />} />
 
-        <Route
-          path="/dashboard"
-          element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/projects"
-          element={
-            <ProtectedRoute>
-              <Projects />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/tasks"
-          element={
-            <ProtectedRoute>
-              <Tasks />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/kanban"
-          element={
-            <ProtectedRoute>
-              <Kanban />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/milestones"
-          element={
-            <ProtectedRoute>
-              <Milestones />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/team"
-          element={
-            <ProtectedRoute>
-              <Team />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/clients"
-          element={
-            <ProtectedRoute>
-              <Clients />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/projects" element={<ProtectedRoute><Projects /></ProtectedRoute>} />
+        <Route path="/tasks" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
+        <Route path="/kanban" element={<ProtectedRoute><Kanban /></ProtectedRoute>} />
+        <Route path="/milestones" element={<ProtectedRoute><Milestones /></ProtectedRoute>} />
+        <Route path="/team" element={<ProtectedRoute><Team /></ProtectedRoute>} />
+        <Route path="/clients" element={<ProtectedRoute><Clients /></ProtectedRoute>} />
+        <Route path="/contracts" element={<ProtectedRoute><Contracts /></ProtectedRoute>} />
 
         {comingSoonRoutes.map((path) => (
           <Route

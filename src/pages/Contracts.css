@@ -1,0 +1,175 @@
+/* src/pages/Contracts.css */
+
+.ct-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--cf-space-5);
+}
+
+.ct-new-btn {
+  background: var(--cf-accent);
+  color: #0e1013;
+  border: none;
+  border-radius: var(--cf-radius-sm);
+  padding: 8px 14px;
+  font-family: var(--cf-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.ct-new-btn:hover {
+  background: var(--cf-accent-2);
+}
+
+.ct-status {
+  color: var(--cf-text-muted);
+  font-size: 13px;
+  padding: var(--cf-space-4) 0;
+}
+
+.ct-error {
+  color: var(--cf-error);
+}
+
+.ct-empty {
+  background: var(--cf-surface);
+  border: 1px dashed var(--cf-border-2);
+  border-radius: var(--cf-radius);
+  color: var(--cf-text-muted);
+  font-size: 13px;
+  padding: var(--cf-space-6);
+  text-align: center;
+}
+
+.ct-table {
+  border: 1px solid var(--cf-border);
+  border-radius: var(--cf-radius);
+  overflow: hidden;
+}
+
+.ct-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--cf-border);
+}
+
+.ct-row:last-child {
+  border-bottom: none;
+}
+
+.ct-row-header {
+  background: var(--cf-surface-2);
+}
+
+.ct-row-header .ct-cell {
+  font-family: var(--cf-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cf-text-dim);
+}
+
+.ct-row:not(.ct-row-header):hover {
+  background: var(--cf-surface);
+}
+
+.ct-cell {
+  padding: 11px var(--cf-space-4);
+  font-size: 13px;
+  color: var(--cf-text);
+}
+
+.ct-cell-num {
+  flex: 0 0 140px;
+  font-family: var(--cf-font-mono);
+  font-weight: 500;
+}
+
+.ct-cell-client {
+  flex: 1;
+  color: var(--cf-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ct-cell-value {
+  flex: 0 0 140px;
+  font-family: var(--cf-font-mono);
+  color: var(--cf-text);
+}
+
+.ct-cell-end {
+  flex: 0 0 120px;
+  font-family: var(--cf-font-mono);
+  font-size: 12px;
+  color: var(--cf-text-muted);
+}
+
+.ct-cell-status {
+  flex: 0 0 110px;
+}
+
+.ct-cell-actions {
+  flex: 0 0 150px;
+  display: flex;
+  gap: var(--cf-space-2);
+  justify-content: flex-end;
+}
+
+.ct-badge {
+  display: inline-block;
+  font-family: var(--cf-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 2px 7px;
+  border-radius: var(--cf-radius-sm);
+  border: 1px solid var(--cf-border-2);
+  color: var(--cf-text-muted);
+}
+
+.ct-badge.status-draft {
+  color: var(--cf-text-dim);
+  border-color: var(--cf-border-2);
+}
+.ct-badge.status-active {
+  color: var(--cf-ok);
+  border-color: var(--cf-ok);
+}
+.ct-badge.status-expired {
+  color: var(--cf-warn);
+  border-color: var(--cf-warn);
+}
+.ct-badge.status-cancelled {
+  color: var(--cf-error);
+  border-color: var(--cf-error);
+}
+
+.ct-action-btn {
+  background: transparent;
+  border: 1px solid var(--cf-border-2);
+  border-radius: var(--cf-radius-sm);
+  color: var(--cf-text-muted);
+  font-family: var(--cf-font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.ct-action-btn:hover {
+  color: var(--cf-accent);
+  border-color: var(--cf-accent);
+}
+
+.ct-action-danger:hover {
+  color: var(--cf-error);
+  border-color: var(--cf-error);
+}
