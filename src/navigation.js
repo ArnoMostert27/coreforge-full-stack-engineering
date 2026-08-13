@@ -38,7 +38,7 @@ export const NAV_SECTIONS = [
       { to: "/projects", label: "Projects", icon: FolderKanban, ready: true },
       { to: "/tasks", label: "Tasks", icon: ListChecks, ready: true },
       { to: "/kanban", label: "Kanban", icon: Columns3, ready: true },
-      { to: "/milestones", label: "Milestones", icon: Flag, ready: false },
+      { to: "/milestones", label: "Milestones", icon: Flag, ready: true },
     ],
   },
   {
