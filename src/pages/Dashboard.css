@@ -50,6 +50,17 @@
   color: var(--cf-text-muted);
 }
 
+.dashboard-user-role {
+  font-family: var(--cf-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cf-accent);
+  border: 1px solid var(--cf-accent);
+  border-radius: var(--cf-radius-sm);
+  padding: 2px 6px;
+}
+
 .dashboard-logout {
   background: transparent;
   border: 1px solid var(--cf-border-2);

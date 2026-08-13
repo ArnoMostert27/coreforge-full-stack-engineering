@@ -8,7 +8,7 @@ import "./Dashboard.css";
 
 function Dashboard() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -29,6 +29,9 @@ function Dashboard() {
 
         <div className="dashboard-user">
           <span className="dashboard-user-email">{user?.email}</span>
+          {profile?.role && (
+            <span className="dashboard-user-role">{profile.role}</span>
+          )}
           <button className="dashboard-logout" onClick={handleLogout}>
             Sign Out
           </button>
