@@ -1,0 +1,65 @@
+/* src/components/ComingSoon.css */
+
+.coming-soon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.coming-soon-panel {
+  max-width: 420px;
+  text-align: center;
+  background: var(--cf-surface);
+  border: 1px solid var(--cf-border);
+  border-radius: var(--cf-radius);
+  padding: var(--cf-space-7) var(--cf-space-6);
+}
+
+.coming-soon-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: var(--cf-space-5);
+  color: var(--cf-accent);
+  border: 1px solid var(--cf-border-2);
+  border-radius: var(--cf-radius);
+}
+
+.coming-soon-section {
+  font-family: var(--cf-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--cf-text-dim);
+  margin-bottom: var(--cf-space-2);
+}
+
+.coming-soon-title {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--cf-text);
+  margin-bottom: var(--cf-space-3);
+}
+
+.coming-soon-status {
+  display: inline-block;
+  font-family: var(--cf-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--cf-accent);
+  border: 1px solid var(--cf-accent);
+  border-radius: var(--cf-radius-sm);
+  padding: 3px 8px;
+  margin-bottom: var(--cf-space-4);
+}
+
+.coming-soon-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--cf-text-muted);
+}
