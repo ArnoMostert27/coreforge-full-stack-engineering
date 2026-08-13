@@ -1,0 +1,166 @@
+/* src/pages/Clients.css */
+
+.clients-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--cf-space-5);
+}
+
+.clients-new-btn {
+  background: var(--cf-accent);
+  color: #0e1013;
+  border: none;
+  border-radius: var(--cf-radius-sm);
+  padding: 8px 14px;
+  font-family: var(--cf-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.clients-new-btn:hover {
+  background: var(--cf-accent-2);
+}
+
+.clients-status {
+  color: var(--cf-text-muted);
+  font-size: 13px;
+  padding: var(--cf-space-4) 0;
+}
+
+.clients-error {
+  color: var(--cf-error);
+}
+
+.clients-empty {
+  background: var(--cf-surface);
+  border: 1px dashed var(--cf-border-2);
+  border-radius: var(--cf-radius);
+  color: var(--cf-text-muted);
+  font-size: 13px;
+  padding: var(--cf-space-6);
+  text-align: center;
+}
+
+.clients-table {
+  border: 1px solid var(--cf-border);
+  border-radius: var(--cf-radius);
+  overflow: hidden;
+}
+
+.clients-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--cf-border);
+}
+
+.clients-row:last-child {
+  border-bottom: none;
+}
+
+.clients-row-header {
+  background: var(--cf-surface-2);
+}
+
+.clients-row-header .clients-cell {
+  font-family: var(--cf-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cf-text-dim);
+}
+
+.clients-row:not(.clients-row-header):hover {
+  background: var(--cf-surface);
+}
+
+.clients-cell {
+  padding: 11px var(--cf-space-4);
+  font-size: 13px;
+  color: var(--cf-text);
+}
+
+.clients-cell-name {
+  flex: 0 0 200px;
+  font-weight: 500;
+}
+
+.clients-cell-contact {
+  flex: 0 0 160px;
+  color: var(--cf-text-muted);
+}
+
+.clients-cell-email {
+  flex: 1;
+  color: var(--cf-text-muted);
+  font-family: var(--cf-font-mono);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clients-cell-status {
+  flex: 0 0 110px;
+}
+
+.clients-cell-actions {
+  flex: 0 0 150px;
+  display: flex;
+  gap: var(--cf-space-2);
+  justify-content: flex-end;
+}
+
+.clients-badge {
+  display: inline-block;
+  font-family: var(--cf-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 2px 7px;
+  border-radius: var(--cf-radius-sm);
+  border: 1px solid var(--cf-border-2);
+  color: var(--cf-text-muted);
+}
+
+.clients-badge.status-lead {
+  color: var(--cf-info);
+  border-color: var(--cf-info);
+}
+
+.clients-badge.status-active {
+  color: var(--cf-ok);
+  border-color: var(--cf-ok);
+}
+
+.clients-badge.status-inactive {
+  color: var(--cf-text-dim);
+  border-color: var(--cf-border-2);
+}
+
+.clients-action-btn {
+  background: transparent;
+  border: 1px solid var(--cf-border-2);
+  border-radius: var(--cf-radius-sm);
+  color: var(--cf-text-muted);
+  font-family: var(--cf-font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.clients-action-btn:hover {
+  color: var(--cf-accent);
+  border-color: var(--cf-accent);
+}
+
+.clients-action-danger:hover {
+  color: var(--cf-error);
+  border-color: var(--cf-error);
+}

@@ -1,5 +1,5 @@
 // src/App.jsx
-// Implemented: Dashboard, Projects, Tasks, Kanban, Milestones, Team.
+// Implemented: Dashboard, Projects, Tasks, Kanban, Milestones, Team, Clients.
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -12,6 +12,7 @@ import Tasks from "./pages/Tasks";
 import Kanban from "./pages/Kanban";
 import Milestones from "./pages/Milestones";
 import Team from "./pages/Team";
+import Clients from "./pages/Clients";
 import { NAV_SECTIONS } from "./navigation";
 
 const IMPLEMENTED = {
@@ -21,6 +22,7 @@ const IMPLEMENTED = {
   "/kanban": Kanban,
   "/milestones": Milestones,
   "/team": Team,
+  "/clients": Clients,
 };
 
 const comingSoonRoutes = NAV_SECTIONS.flatMap((group) =>
@@ -79,6 +81,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Team />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/clients"
+          element={
+            <ProtectedRoute>
+              <Clients />
             </ProtectedRoute>
           }
         />

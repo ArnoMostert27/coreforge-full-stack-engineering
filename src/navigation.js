@@ -44,7 +44,7 @@ export const NAV_SECTIONS = [
   {
     section: "Business",
     items: [
-      { to: "/clients", label: "Clients", icon: Building2, ready: false },
+      { to: "/clients", label: "Clients", icon: Building2, ready: true },
       { to: "/contracts", label: "Contracts", icon: FileText, ready: false },
       { to: "/invoices", label: "Invoices", icon: Receipt, ready: false },
       { to: "/payments", label: "Payments", icon: CircleDollarSign, ready: false },
