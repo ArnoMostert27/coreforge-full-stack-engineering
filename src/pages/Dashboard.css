@@ -14,6 +14,17 @@
   color: var(--cf-error);
 }
 
+.dash-section-title {
+  font-family: var(--cf-font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--cf-text-dim);
+  margin: var(--cf-space-6) 0 var(--cf-space-4);
+  padding-bottom: var(--cf-space-2);
+  border-bottom: 1px solid var(--cf-border);
+}
+
 /* ---- Metric panels ---- */
 .dash-metrics {
   display: grid;
@@ -63,17 +74,35 @@
   color: var(--cf-error);
 }
 
+/* ---- Finance metric variant (currency, no padStart) ---- */
+.dash-metric-finance .dash-finance-value {
+  font-family: var(--cf-font-mono);
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--cf-text);
+}
+
+.dash-finance-value.tone-error {
+  color: var(--cf-error);
+}
+
 /* ---- Operational columns ---- */
 .dash-columns {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: var(--cf-space-4);
+  margin-bottom: var(--cf-space-4);
 }
 
 .dash-panel {
   background: var(--cf-surface);
   border: 1px solid var(--cf-border);
   border-radius: var(--cf-radius);
+}
+
+.dash-panel-full {
+  grid-column: 1 / -1;
 }
 
 .dash-panel-head {
@@ -133,6 +162,15 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: baseline;
+  gap: var(--cf-space-2);
+}
+
+.dash-list-sub {
+  font-family: var(--cf-font-mono);
+  font-size: 10px;
+  color: var(--cf-text-dim);
 }
 
 .dash-list-meta {
