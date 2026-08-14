@@ -60,9 +60,9 @@ export const NAV_SECTIONS = [
   {
     section: "Knowledge",
     items: [
-      { to: "/documentation", label: "Documentation", icon: BookOpen, ready: false },
-      { to: "/meetings", label: "Meetings", icon: CalendarClock, ready: false },
-      { to: "/decisions", label: "Decisions", icon: Network, ready: false },
+      { to: "/documentation", label: "Documentation", icon: BookOpen, ready: true },
+      { to: "/meetings", label: "Meetings", icon: CalendarClock, ready: true },
+      { to: "/decisions", label: "Decisions", icon: Network, ready: true },
     ],
   },
   {
@@ -71,7 +71,7 @@ export const NAV_SECTIONS = [
       { to: "/administration", label: "Administration", icon: Settings, ready: false },
       { to: "/security", label: "Security", icon: Shield, ready: false },
       { to: "/settings", label: "Settings", icon: Settings, ready: false },
-      { to: "/announcements", label: "Announcements", icon: Megaphone, ready: false },
+      { to: "/announcements", label: "Announcements", icon: Megaphone, ready: true },
     ],
   },
   {

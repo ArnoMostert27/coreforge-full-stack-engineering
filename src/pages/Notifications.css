@@ -1,0 +1,26 @@
+/* src/pages/Notifications.css */
+
+.ntf-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--cf-space-5); }
+.ntf-controls { display: flex; align-items: center; gap: var(--cf-space-3); }
+.ntf-count { font-family: var(--cf-font-mono); font-size: 11px; color: var(--cf-text-dim); }
+.ntf-toggle { background: transparent; border: 1px solid var(--cf-border-2); border-radius: var(--cf-radius-sm); color: var(--cf-text-muted); font-family: var(--cf-font-sans); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 5px 10px; cursor: pointer; }
+.ntf-toggle:hover { color: var(--cf-accent); border-color: var(--cf-accent); }
+.ntf-status { color: var(--cf-text-muted); font-size: 13px; padding: var(--cf-space-4) 0; }
+.ntf-error { color: var(--cf-error); }
+.ntf-empty { background: var(--cf-surface); border: 1px dashed var(--cf-border-2); border-radius: var(--cf-radius); color: var(--cf-text-muted); font-size: 13px; padding: var(--cf-space-6); text-align: center; }
+.ntf-list { display: flex; flex-direction: column; gap: var(--cf-space-3); }
+.ntf-card { display: flex; align-items: stretch; background: var(--cf-surface); border: 1px solid var(--cf-border); border-left: 3px solid var(--cf-text-dim); border-radius: var(--cf-radius); overflow: hidden; }
+.ntf-card.type-task { border-left-color: var(--cf-info); }
+.ntf-card.type-invoice { border-left-color: var(--cf-warn); }
+.ntf-card.type-meeting { border-left-color: var(--cf-accent); }
+.ntf-card.type-deployment { border-left-color: var(--cf-ok); }
+.ntf-card.type-announcement { border-left-color: var(--cf-error); }
+.ntf-card.is-read { opacity: 0.5; }
+.ntf-card-main { flex: 1; padding: var(--cf-space-3) var(--cf-space-4); cursor: pointer; }
+.ntf-card-top { display: flex; align-items: center; gap: var(--cf-space-2); margin-bottom: 3px; }
+.ntf-card-title { font-size: 13px; font-weight: 600; color: var(--cf-text); }
+.ntf-urgent { font-family: var(--cf-font-mono); font-size: 9px; text-transform: uppercase; letter-spacing: 1px; color: var(--cf-error); border: 1px solid var(--cf-error); border-radius: var(--cf-radius-sm); padding: 1px 5px; }
+.ntf-card-msg { font-size: 12px; color: var(--cf-text-muted); }
+.ntf-card-date { font-family: var(--cf-font-mono); font-size: 10px; color: var(--cf-text-dim); margin-top: 3px; }
+.ntf-dismiss { width: 44px; flex-shrink: 0; background: transparent; border: none; border-left: 1px solid var(--cf-border); color: var(--cf-text-dim); font-size: 18px; cursor: pointer; }
+.ntf-dismiss:hover { color: var(--cf-error); background: var(--cf-surface-2); }

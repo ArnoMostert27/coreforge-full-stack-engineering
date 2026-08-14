@@ -1,0 +1,23 @@
+/* src/pages/Search.css */
+
+.srch-head { margin-bottom: var(--cf-space-5); }
+.srch-bar { display: flex; gap: var(--cf-space-3); margin-bottom: var(--cf-space-5); }
+.srch-input { flex: 1; background: var(--cf-inset); border: 1px solid var(--cf-border); border-radius: var(--cf-radius-sm); padding: 10px 13px; color: var(--cf-text); font-family: var(--cf-font-sans); font-size: 14px; }
+.srch-input:focus { outline: none; border-color: var(--cf-accent); }
+.srch-btn { background: var(--cf-accent); color: #0e1013; border: none; border-radius: var(--cf-radius-sm); padding: 10px 20px; font-family: var(--cf-font-sans); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
+.srch-btn:hover { background: var(--cf-accent-2); }
+.srch-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.srch-status { font-size: 13px; padding: var(--cf-space-3) 0; }
+.srch-error { color: var(--cf-error); }
+.srch-count { font-family: var(--cf-font-mono); font-size: 11px; color: var(--cf-text-dim); margin-bottom: var(--cf-space-4); }
+.srch-empty { background: var(--cf-surface); border: 1px dashed var(--cf-border-2); border-radius: var(--cf-radius); color: var(--cf-text-muted); font-size: 13px; padding: var(--cf-space-6); text-align: center; }
+.srch-group { margin-bottom: var(--cf-space-5); }
+.srch-group-head { display: flex; align-items: center; gap: var(--cf-space-2); margin-bottom: var(--cf-space-2); }
+.srch-group-label { font-family: var(--cf-font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cf-text-dim); }
+.srch-group-count { font-family: var(--cf-font-mono); font-size: 10px; color: var(--cf-text-muted); background: var(--cf-inset); border: 1px solid var(--cf-border); border-radius: var(--cf-radius-sm); padding: 1px 6px; }
+.srch-results { border: 1px solid var(--cf-border); border-radius: var(--cf-radius); overflow: hidden; }
+.srch-result { display: flex; align-items: center; justify-content: space-between; padding: 10px var(--cf-space-4); border-bottom: 1px solid var(--cf-border); cursor: pointer; }
+.srch-result:last-child { border-bottom: none; }
+.srch-result:hover { background: var(--cf-surface); }
+.srch-result-title { font-size: 13px; color: var(--cf-text); }
+.srch-result-sub { font-family: var(--cf-font-mono); font-size: 11px; color: var(--cf-text-muted); }

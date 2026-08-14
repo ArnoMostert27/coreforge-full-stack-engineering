@@ -1,0 +1,33 @@
+/* src/pages/Meetings.css */
+
+.mt-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--cf-space-5); }
+.mt-new-btn { background: var(--cf-accent); color: #0e1013; border: none; border-radius: var(--cf-radius-sm); padding: 8px 14px; font-family: var(--cf-font-sans); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
+.mt-new-btn:hover { background: var(--cf-accent-2); }
+.mt-status { color: var(--cf-text-muted); font-size: 13px; padding: var(--cf-space-4) 0; }
+.mt-error { color: var(--cf-error); }
+.mt-empty { background: var(--cf-surface); border: 1px dashed var(--cf-border-2); border-radius: var(--cf-radius); color: var(--cf-text-muted); font-size: 13px; padding: var(--cf-space-6); text-align: center; }
+.mt-table { border: 1px solid var(--cf-border); border-radius: var(--cf-radius); overflow: hidden; }
+.mt-row { display: flex; align-items: center; border-bottom: 1px solid var(--cf-border); }
+.mt-row:last-child { border-bottom: none; }
+.mt-row-header { background: var(--cf-surface-2); }
+.mt-row-header .mt-cell { font-family: var(--cf-font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--cf-text-dim); }
+.mt-row:not(.mt-row-header):hover { background: var(--cf-surface); }
+.mt-cell { padding: 11px var(--cf-space-4); font-size: 13px; color: var(--cf-text); }
+.mt-cell-title { flex: 1; min-width: 150px; font-weight: 500; }
+.mt-cell-type { flex: 0 0 110px; }
+.mt-cell-date { flex: 0 0 120px; font-family: var(--cf-font-mono); font-size: 12px; color: var(--cf-text-muted); }
+.mt-cell-time { flex: 0 0 80px; font-family: var(--cf-font-mono); font-size: 12px; color: var(--cf-text-muted); }
+.mt-cell-status { flex: 0 0 120px; }
+.mt-cell-actions { flex: 0 0 150px; display: flex; gap: var(--cf-space-2); justify-content: flex-end; }
+.mt-type { display: inline-block; font-family: var(--cf-font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 2px 7px; border-radius: var(--cf-radius-sm); border: 1px solid var(--cf-border-2); color: var(--cf-text-muted); }
+.mt-type.type-internal { color: var(--cf-info); border-color: var(--cf-info); }
+.mt-type.type-client { color: var(--cf-accent); border-color: var(--cf-accent); }
+.mt-type.type-planning { color: var(--cf-warn); border-color: var(--cf-warn); }
+.mt-type.type-review { color: var(--cf-ok); border-color: var(--cf-ok); }
+.mt-badge { display: inline-block; font-family: var(--cf-font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 2px 7px; border-radius: var(--cf-radius-sm); border: 1px solid var(--cf-border-2); color: var(--cf-text-muted); }
+.mt-badge.status-scheduled { color: var(--cf-info); border-color: var(--cf-info); }
+.mt-badge.status-completed { color: var(--cf-ok); border-color: var(--cf-ok); }
+.mt-badge.status-cancelled { color: var(--cf-error); border-color: var(--cf-error); }
+.mt-action-btn { background: transparent; border: 1px solid var(--cf-border-2); border-radius: var(--cf-radius-sm); color: var(--cf-text-muted); font-family: var(--cf-font-sans); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 5px 10px; cursor: pointer; }
+.mt-action-btn:hover { color: var(--cf-accent); border-color: var(--cf-accent); }
+.mt-action-danger:hover { color: var(--cf-error); border-color: var(--cf-error); }
