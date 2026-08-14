@@ -54,7 +54,7 @@ export const NAV_SECTIONS = [
     section: "Engineering",
     items: [
       { to: "/github", label: "GitHub", icon: GitBranch, ready: false },
-      { to: "/deployments", label: "Deployments", icon: Rocket, ready: false },
+      { to: "/deployments", label: "Deployments", icon: Rocket, ready: true },
     ],
   },
   {
