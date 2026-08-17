@@ -1,5 +1,6 @@
 // src/navigation.js
-// LOCKED navigation structure for CoreForge V1.
+// LOCKED navigation structure for CoreForge V1. Administration, Security,
+// Settings now implemented.
 
 import {
   LayoutDashboard,
@@ -68,9 +69,9 @@ export const NAV_SECTIONS = [
   {
     section: "System",
     items: [
-      { to: "/administration", label: "Administration", icon: Settings, ready: false },
-      { to: "/security", label: "Security", icon: Shield, ready: false },
-      { to: "/settings", label: "Settings", icon: Settings, ready: false },
+      { to: "/administration", label: "Administration", icon: Settings, ready: true },
+      { to: "/security", label: "Security", icon: Shield, ready: true },
+      { to: "/settings", label: "Settings", icon: Settings, ready: true },
       { to: "/announcements", label: "Announcements", icon: Megaphone, ready: true },
     ],
   },

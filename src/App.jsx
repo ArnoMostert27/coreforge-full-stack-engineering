@@ -1,6 +1,5 @@
 // src/App.jsx
-// Implemented through Phase 5. Calendar, Search, Notifications are routed
-// but intentionally not in the locked nav (reached by URL / in-app links).
+// Implemented through Phase 6.
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -25,6 +24,9 @@ import Announcements from "./pages/Announcements";
 import Calendar from "./pages/Calendar";
 import Search from "./pages/Search";
 import Notifications from "./pages/Notifications";
+import Administration from "./pages/Administration";
+import Security from "./pages/Security";
+import Settings from "./pages/Settings";
 import { NAV_SECTIONS } from "./navigation";
 
 const IMPLEMENTED = {
@@ -43,6 +45,9 @@ const IMPLEMENTED = {
   "/documentation": Documentation,
   "/decisions": Decisions,
   "/announcements": Announcements,
+  "/administration": Administration,
+  "/security": Security,
+  "/settings": Settings,
 };
 
 const comingSoonRoutes = NAV_SECTIONS.flatMap((group) =>
@@ -71,8 +76,10 @@ function App() {
         <Route path="/documentation" element={<ProtectedRoute><Documentation /></ProtectedRoute>} />
         <Route path="/decisions" element={<ProtectedRoute><Decisions /></ProtectedRoute>} />
         <Route path="/announcements" element={<ProtectedRoute><Announcements /></ProtectedRoute>} />
+        <Route path="/administration" element={<ProtectedRoute><Administration /></ProtectedRoute>} />
+        <Route path="/security" element={<ProtectedRoute><Security /></ProtectedRoute>} />
+        <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
 
-        {/* Aggregators — routed but not in the locked nav. */}
         <Route path="/calendar" element={<ProtectedRoute><Calendar /></ProtectedRoute>} />
         <Route path="/search" element={<ProtectedRoute><Search /></ProtectedRoute>} />
         <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
