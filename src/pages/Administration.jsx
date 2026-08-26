@@ -34,6 +34,7 @@ const EMPTY_FORM = {
   email: "",
   role: "developer",
   status: "active",
+  responsibilities: "",
   notes: "",
 };
 
@@ -104,7 +105,7 @@ function Administration() {
       if (roleFilter !== "all" && u.role !== roleFilter) return false;
       if (statusFilter !== "all" && u.status !== statusFilter) return false;
       if (!term) return true;
-      return [u.displayName, u.firstName, u.lastName, u.email]
+      return [u.displayName, u.firstName, u.lastName, u.email, u.responsibilities]
         .join(" ")
         .toLowerCase()
         .includes(term);
@@ -126,6 +127,7 @@ function Administration() {
       email: u.email || "",
       role: u.role || "developer",
       status: u.status || "active",
+      responsibilities: u.responsibilities || "",
       notes: u.notes || "",
     });
     setFormError("");
@@ -252,6 +254,7 @@ function Administration() {
             <div className="adm-cell adm-cell-name">Name</div>
             <div className="adm-cell adm-cell-email">Email</div>
             <div className="adm-cell adm-cell-role">Role</div>
+            <div className="adm-cell adm-cell-resp">Responsibilities</div>
             <div className="adm-cell adm-cell-access">Access</div>
             <div className="adm-cell adm-cell-status">Status</div>
             <div className="adm-cell adm-cell-actions">Actions</div>
@@ -264,6 +267,11 @@ function Administration() {
               <div className="adm-cell adm-cell-role">
                 <span className={"adm-role role-" + u.role}>{roleLabel(u.role)}</span>
               </div>
+              <div className="adm-cell adm-cell-resp" title={u.responsibilities || ""}>
+                {u.responsibilities
+                  ? <span className="adm-resp-text">{u.responsibilities}</span>
+                  : <span className="adm-resp-empty">Not set</span>}
+              </div>
               <div className="adm-cell adm-cell-access">{roleAccessSummary(u.role)}</div>
               <div className="adm-cell adm-cell-status">
                 <span className={"adm-badge status-" + u.status}>{statusLabel(u.status)}</span>
@@ -274,6 +282,31 @@ function Administration() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* ---- Who does what ---- */}
+      {!loading && !error && users.length > 0 && (
+        <div className="adm-who">
+          <div className="adm-who-title">Who Does What</div>
+          <div className="adm-who-grid">
+            {users.map((u) => (
+              <div className="adm-who-card" key={u.id}>
+                <div className="adm-who-card-head">
+                  <div className="adm-who-name">{u.displayName || u.email}</div>
+                  <span className={"adm-role role-" + u.role}>{roleLabel(u.role)}</span>
+                </div>
+                <div className="adm-who-email">{u.email}</div>
+                {u.responsibilities ? (
+                  <div className="adm-who-body">{u.responsibilities}</div>
+                ) : (
+                  <div className="adm-who-body adm-who-body-empty">
+                    No responsibilities recorded yet.
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
@@ -332,6 +365,19 @@ function Administration() {
                   {STATUS_OPTIONS.map((s) => (<option key={s.value} value={s.value}>{s.label}</option>))}
                 </select>
               </div>
+            </div>
+
+            <div className="form-field">
+              <label className="form-label">Responsibilities</label>
+              <textarea
+                className="form-input form-textarea"
+                value={form.responsibilities}
+                onChange={(e) => field("responsibilities", e.target.value)}
+                disabled={saving}
+                rows={4}
+                placeholder="What this person owns — e.g. backend architecture, database design, deployments…"
+              />
+              <div className="form-hint">Free text. One line per area of ownership works well.</div>
             </div>
 
             <div className="form-field">

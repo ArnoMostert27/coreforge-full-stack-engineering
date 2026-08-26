@@ -1,6 +1,6 @@
 // src/services/adminUserService.js
-// Manage Firestore user records (role, status, notes). Auth accounts are
-// created separately in the Firebase console (V1 login model).
+// Manage Firestore user records (role, status, responsibilities, notes). Auth
+// accounts are created separately in the Firebase console (V1 login model).
 
 import {
   collection,
@@ -17,6 +17,10 @@ import { db } from "../firebase";
 
 const usersRef = collection(db, "users");
 
+function clean(v) {
+  return (v || "").trim();
+}
+
 export async function listAllUsers() {
   const q = query(usersRef, orderBy("email"));
   const snapshot = await getDocs(q);
@@ -25,15 +29,16 @@ export async function listAllUsers() {
 
 // Create a user record (not an Auth account).
 export async function createUserRecord(data, createdBy) {
-  const displayName = `${data.firstName.trim()} ${data.lastName.trim()}`.trim();
+  const displayName = `${clean(data.firstName)} ${clean(data.lastName)}`.trim();
   const docRef = await addDoc(usersRef, {
-    firstName: data.firstName.trim(),
-    lastName: data.lastName.trim(),
+    firstName: clean(data.firstName),
+    lastName: clean(data.lastName),
     displayName,
-    email: data.email.trim(),
+    email: clean(data.email),
     role: data.role || "developer",
     status: data.status || "active",
-    notes: data.notes.trim(),
+    responsibilities: clean(data.responsibilities),
+    notes: clean(data.notes),
     createdBy: createdBy || null,
     createdAt: serverTimestamp(),
   });
@@ -41,16 +46,17 @@ export async function createUserRecord(data, createdBy) {
 }
 
 export async function updateUserRecord(id, data) {
-  const displayName = `${data.firstName.trim()} ${data.lastName.trim()}`.trim();
+  const displayName = `${clean(data.firstName)} ${clean(data.lastName)}`.trim();
   const ref = doc(db, "users", id);
   await updateDoc(ref, {
-    firstName: data.firstName.trim(),
-    lastName: data.lastName.trim(),
+    firstName: clean(data.firstName),
+    lastName: clean(data.lastName),
     displayName,
-    email: data.email.trim(),
+    email: clean(data.email),
     role: data.role,
     status: data.status,
-    notes: data.notes.trim(),
+    responsibilities: clean(data.responsibilities),
+    notes: clean(data.notes),
     updatedAt: serverTimestamp(),
   });
 }
