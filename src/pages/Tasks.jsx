@@ -1,9 +1,10 @@
 // src/pages/Tasks.jsx
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import AppLayout from "../components/AppLayout";
 import { useAuth } from "../context/AuthContext";
 import { listProjects } from "../services/projectService";
+import { listUsers } from "../services/userService";
 import {
   createTask,
   listTasks,
@@ -43,6 +44,8 @@ const EMPTY_FORM = {
   priority: "medium",
   dueDate: "",
   recurrence: "none",
+  assigneeId: "",
+  assigneeName: "",
 };
 
 function statusLabel(value) {
@@ -55,13 +58,28 @@ function recurrenceLabel(value) {
   return RECURRENCE_OPTIONS.find((r) => r.value === value)?.label || "None";
 }
 
+// A member's display name, falling back to their email.
+function memberName(u) {
+  return u?.displayName || u?.email || "";
+}
+
+function initials(name) {
+  const parts = String(name || "").trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return "?";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
 function Tasks() {
   const { user } = useAuth();
 
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [assigneeFilter, setAssigneeFilter] = useState("all");
 
   const [modalMode, setModalMode] = useState(null);
   const [editingId, setEditingId] = useState(null);
@@ -76,12 +94,14 @@ function Tasks() {
     setLoading(true);
     setError("");
     try {
-      const [taskData, projectData] = await Promise.all([
+      const [taskData, projectData, memberData] = await Promise.all([
         listTasks(),
         listProjects(),
+        listUsers(),
       ]);
       setTasks(taskData);
       setProjects(projectData);
+      setMembers(memberData);
     } catch (err) {
       console.error(err);
       setError("Could not load tasks.");
@@ -98,6 +118,21 @@ function Tasks() {
     if (!projectId) return "—";
     return projects.find((p) => p.id === projectId)?.name || "—";
   }
+
+  // Prefer the live user record; fall back to the name stored on the task so a
+  // deleted member doesn't erase the history of who owned it.
+  function assigneeLabel(task) {
+    if (!task.assigneeId && !task.assigneeName) return null;
+    const found = members.find((m) => m.id === task.assigneeId);
+    if (found) return memberName(found);
+    return task.assigneeName || "Unknown member";
+  }
+
+  const filtered = useMemo(() => {
+    if (assigneeFilter === "all") return tasks;
+    if (assigneeFilter === "unassigned") return tasks.filter((t) => !t.assigneeId);
+    return tasks.filter((t) => t.assigneeId === assigneeFilter);
+  }, [tasks, assigneeFilter]);
 
   function openCreate() {
     setModalMode("create");
@@ -117,6 +152,8 @@ function Tasks() {
       priority: task.priority || "medium",
       dueDate: toInputValue(task.dueDate),
       recurrence: task.recurrence || "none",
+      assigneeId: task.assigneeId || "",
+      assigneeName: task.assigneeName || "",
     });
     setFormError("");
   }
@@ -131,6 +168,16 @@ function Tasks() {
 
   function updateField(field, value) {
     setForm((f) => ({ ...f, [field]: value }));
+  }
+
+  // Keep assigneeId and assigneeName in step whenever the select changes.
+  function selectAssignee(id) {
+    const found = members.find((m) => m.id === id);
+    setForm((f) => ({
+      ...f,
+      assigneeId: id,
+      assigneeName: found ? memberName(found) : "",
+    }));
   }
 
   async function handleSave() {
@@ -189,6 +236,28 @@ function Tasks() {
         </button>
       </div>
 
+      {!loading && !error && tasks.length > 0 && (
+        <div className="tasks-controls">
+          <label className="tasks-filter-label">Assignee</label>
+          <select
+            className="tasks-filter"
+            value={assigneeFilter}
+            onChange={(e) => setAssigneeFilter(e.target.value)}
+          >
+            <option value="all">Everyone</option>
+            <option value="unassigned">Unassigned</option>
+            {members.map((m) => (
+              <option key={m.id} value={m.id}>
+                {memberName(m)}
+              </option>
+            ))}
+          </select>
+          <span className="tasks-filter-count">
+            {filtered.length} of {tasks.length}
+          </span>
+        </div>
+      )}
+
       {loading && <div className="tasks-status">Loading tasks…</div>}
       {error && <div className="tasks-status tasks-error">{error}</div>}
 
@@ -198,10 +267,15 @@ function Tasks() {
         </div>
       )}
 
-      {!loading && !error && tasks.length > 0 && (
+      {!loading && !error && tasks.length > 0 && filtered.length === 0 && (
+        <div className="tasks-empty">No tasks match this assignee.</div>
+      )}
+
+      {!loading && !error && filtered.length > 0 && (
         <div className="tasks-table">
           <div className="tasks-row tasks-row-header">
             <div className="tasks-cell tasks-cell-title">Title</div>
+            <div className="tasks-cell tasks-cell-assignee">Assignee</div>
             <div className="tasks-cell tasks-cell-project">Project</div>
             <div className="tasks-cell tasks-cell-status">Status</div>
             <div className="tasks-cell tasks-cell-priority">Priority</div>
@@ -210,47 +284,60 @@ function Tasks() {
             <div className="tasks-cell tasks-cell-actions">Actions</div>
           </div>
 
-          {tasks.map((t) => (
-            <div className="tasks-row" key={t.id}>
-              <div className="tasks-cell tasks-cell-title">{t.title}</div>
-              <div className="tasks-cell tasks-cell-project">
-                {projectName(t.projectId)}
-              </div>
-              <div className="tasks-cell tasks-cell-status">
-                <span className={"tasks-badge status-" + t.status}>
-                  {statusLabel(t.status)}
-                </span>
-              </div>
-              <div className="tasks-cell tasks-cell-priority">
-                <span className={"tasks-priority priority-" + t.priority}>
-                  {priorityLabel(t.priority)}
-                </span>
-              </div>
-              <div className="tasks-cell tasks-cell-due">
-                {toDisplay(t.dueDate)}
-              </div>
-              <div className="tasks-cell tasks-cell-recur">
-                {t.recurrence && t.recurrence !== "none" ? (
-                  <span className="tasks-recur-badge">
-                    {recurrenceLabel(t.recurrence)}
+          {filtered.map((t) => {
+            const who = assigneeLabel(t);
+            return (
+              <div className="tasks-row" key={t.id}>
+                <div className="tasks-cell tasks-cell-title">{t.title}</div>
+                <div className="tasks-cell tasks-cell-assignee">
+                  {who ? (
+                    <span className="tasks-assignee" title={who}>
+                      <span className="tasks-avatar">{initials(who)}</span>
+                      <span className="tasks-assignee-name">{who}</span>
+                    </span>
+                  ) : (
+                    <span className="tasks-unassigned">Unassigned</span>
+                  )}
+                </div>
+                <div className="tasks-cell tasks-cell-project">
+                  {projectName(t.projectId)}
+                </div>
+                <div className="tasks-cell tasks-cell-status">
+                  <span className={"tasks-badge status-" + t.status}>
+                    {statusLabel(t.status)}
                   </span>
-                ) : (
-                  "—"
-                )}
+                </div>
+                <div className="tasks-cell tasks-cell-priority">
+                  <span className={"tasks-priority priority-" + t.priority}>
+                    {priorityLabel(t.priority)}
+                  </span>
+                </div>
+                <div className="tasks-cell tasks-cell-due">
+                  {toDisplay(t.dueDate)}
+                </div>
+                <div className="tasks-cell tasks-cell-recur">
+                  {t.recurrence && t.recurrence !== "none" ? (
+                    <span className="tasks-recur-badge">
+                      {recurrenceLabel(t.recurrence)}
+                    </span>
+                  ) : (
+                    "—"
+                  )}
+                </div>
+                <div className="tasks-cell tasks-cell-actions">
+                  <button className="tasks-action-btn" onClick={() => openEdit(t)}>
+                    Edit
+                  </button>
+                  <button
+                    className="tasks-action-btn tasks-action-danger"
+                    onClick={() => askDelete(t)}
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
-              <div className="tasks-cell tasks-cell-actions">
-                <button className="tasks-action-btn" onClick={() => openEdit(t)}>
-                  Edit
-                </button>
-                <button
-                  className="tasks-action-btn tasks-action-danger"
-                  onClick={() => askDelete(t)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
@@ -285,21 +372,45 @@ function Tasks() {
               />
             </div>
 
-            <div className="form-field">
-              <label className="form-label">Project</label>
-              <select
-                className="form-input"
-                value={form.projectId}
-                onChange={(e) => updateField("projectId", e.target.value)}
-                disabled={saving}
-              >
-                <option value="">— No project —</option>
-                {projects.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.name}
-                  </option>
-                ))}
-              </select>
+            <div className="form-row">
+              <div className="form-field">
+                <label className="form-label">Assign To</label>
+                <select
+                  className="form-input"
+                  value={form.assigneeId}
+                  onChange={(e) => selectAssignee(e.target.value)}
+                  disabled={saving}
+                >
+                  <option value="">— Unassigned —</option>
+                  {members.map((m) => (
+                    <option key={m.id} value={m.id}>
+                      {memberName(m)}
+                    </option>
+                  ))}
+                </select>
+                {members.length === 0 && (
+                  <div className="form-hint">
+                    No team members found. Add user records in Administration first.
+                  </div>
+                )}
+              </div>
+
+              <div className="form-field">
+                <label className="form-label">Project</label>
+                <select
+                  className="form-input"
+                  value={form.projectId}
+                  onChange={(e) => updateField("projectId", e.target.value)}
+                  disabled={saving}
+                >
+                  <option value="">— No project —</option>
+                  {projects.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             <div className="form-row">

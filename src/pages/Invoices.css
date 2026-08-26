@@ -115,7 +115,7 @@
 }
 
 .inv-cell-actions {
-  flex: 0 0 150px;
+  flex: 0 0 215px;
   display: flex;
   gap: var(--cf-space-2);
   justify-content: flex-end;

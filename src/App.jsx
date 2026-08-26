@@ -25,6 +25,7 @@ import Calendar from "./pages/Calendar";
 import Search from "./pages/Search";
 import Notifications from "./pages/Notifications";
 import Administration from "./pages/Administration";
+import Accounts from "./pages/Accounts";
 import Security from "./pages/Security";
 import Settings from "./pages/Settings";
 import { NAV_SECTIONS } from "./navigation";
@@ -46,6 +47,7 @@ const IMPLEMENTED = {
   "/decisions": Decisions,
   "/announcements": Announcements,
   "/administration": Administration,
+  "/accounts": Accounts,
   "/security": Security,
   "/settings": Settings,
 };
@@ -77,6 +79,7 @@ function App() {
         <Route path="/decisions" element={<ProtectedRoute><Decisions /></ProtectedRoute>} />
         <Route path="/announcements" element={<ProtectedRoute><Announcements /></ProtectedRoute>} />
         <Route path="/administration" element={<ProtectedRoute><Administration /></ProtectedRoute>} />
+        <Route path="/accounts" element={<ProtectedRoute><Accounts /></ProtectedRoute>} />
         <Route path="/security" element={<ProtectedRoute><Security /></ProtectedRoute>} />
         <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
 

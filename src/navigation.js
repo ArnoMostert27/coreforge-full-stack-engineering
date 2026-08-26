@@ -1,6 +1,6 @@
 // src/navigation.js
 // LOCKED navigation structure for CoreForge V1. Administration, Security,
-// Settings now implemented.
+// Settings, Accounts now implemented.
 
 import {
   LayoutDashboard,
@@ -23,6 +23,7 @@ import {
   Megaphone,
   Sparkles,
   Bot,
+  KeyRound,
 } from "lucide-react";
 
 export const NAV_SECTIONS = [
@@ -70,6 +71,7 @@ export const NAV_SECTIONS = [
     section: "System",
     items: [
       { to: "/administration", label: "Administration", icon: Settings, ready: true },
+      { to: "/accounts", label: "Accounts", icon: KeyRound, ready: true },
       { to: "/security", label: "Security", icon: Shield, ready: true },
       { to: "/settings", label: "Settings", icon: Settings, ready: true },
       { to: "/announcements", label: "Announcements", icon: Megaphone, ready: true },

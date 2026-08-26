@@ -25,6 +25,45 @@
   background: var(--cf-accent-2);
 }
 
+/* ---- Assignee filter ---- */
+.tasks-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--cf-space-3);
+  margin-bottom: var(--cf-space-4);
+  flex-wrap: wrap;
+}
+
+.tasks-filter-label {
+  font-family: var(--cf-font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--cf-text-dim);
+}
+
+.tasks-filter {
+  background: var(--cf-inset);
+  border: 1px solid var(--cf-border);
+  border-radius: var(--cf-radius-sm);
+  padding: 7px 10px;
+  color: var(--cf-text);
+  font-family: var(--cf-font-sans);
+  font-size: 13px;
+  min-width: 180px;
+}
+
+.tasks-filter:focus {
+  outline: none;
+  border-color: var(--cf-accent);
+}
+
+.tasks-filter-count {
+  font-family: var(--cf-font-mono);
+  font-size: 11px;
+  color: var(--cf-text-dim);
+}
+
 .tasks-status {
   color: var(--cf-text-muted);
   font-size: 13px;
@@ -89,6 +128,11 @@
   font-weight: 500;
 }
 
+.tasks-cell-assignee {
+  flex: 0 0 170px;
+  min-width: 0;
+}
+
 .tasks-cell-project {
   flex: 0 0 140px;
   color: var(--cf-text-muted);
@@ -122,6 +166,46 @@
   display: flex;
   gap: var(--cf-space-2);
   justify-content: flex-end;
+}
+
+/* ---- Assignee chip ---- */
+.tasks-assignee {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.tasks-avatar {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--cf-inset);
+  border: 1px solid var(--cf-accent);
+  color: var(--cf-accent);
+  font-family: var(--cf-font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tasks-assignee-name {
+  font-size: 12.5px;
+  color: var(--cf-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tasks-unassigned {
+  font-size: 12px;
+  color: var(--cf-text-dim);
+  font-style: italic;
 }
 
 .tasks-badge {
@@ -213,4 +297,24 @@
 .tasks-action-danger:hover {
   color: var(--cf-error);
   border-color: var(--cf-error);
+}
+
+/* Shared modal hint (also defined in Administration.css / Accounts.css) */
+.form-hint {
+  margin-top: 5px;
+  font-size: 11px;
+  color: var(--cf-text-dim);
+  line-height: 1.4;
+}
+
+/* Narrow screens: shed the least important columns so Assignee survives */
+@media (max-width: 1400px) {
+  .tasks-cell-recur { display: none; }
+}
+@media (max-width: 1200px) {
+  .tasks-cell-project { display: none; }
+}
+@media (max-width: 1000px) {
+  .tasks-assignee-name { display: none; }
+  .tasks-cell-assignee { flex: 0 0 62px; }
 }

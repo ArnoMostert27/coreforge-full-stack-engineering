@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import AppLayout from "../components/AppLayout";
+import InvoiceDocument from "../components/InvoiceDocument";
 import { useAuth } from "../context/AuthContext";
 import { listClients } from "../services/clientService";
 import { listProjects } from "../services/projectService";
@@ -82,6 +83,9 @@ function Invoices() {
   const [deleteTarget, setDeleteTarget] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
+  // Invoice currently open in the print/PDF preview.
+  const [pdfTarget, setPdfTarget] = useState(null);
+
   async function loadAll() {
     setLoading(true);
     setError("");
@@ -112,6 +116,16 @@ function Invoices() {
   function clientName(id) {
     if (!id) return "—";
     return clients.find((c) => c.id === id)?.companyName || "—";
+  }
+
+  function clientById(id) {
+    return clients.find((c) => c.id === id) || null;
+  }
+  function projectById(id) {
+    return projects.find((p) => p.id === id) || null;
+  }
+  function contractById(id) {
+    return contracts.find((c) => c.id === id) || null;
   }
 
   function openCreate() {
@@ -190,15 +204,21 @@ function Invoices() {
     }
     setSaving(true);
     try {
-      if (modalMode === "edit" && editingId) {
-        await updateInvoice(editingId, form);
-      } else {
+      const snapshot = { ...form, lineItems: form.lineItems.map((li) => ({ ...li })) };
+      const wasCreate = !(modalMode === "edit" && editingId);
+
+      if (wasCreate) {
         await createInvoice(form, user?.uid);
+      } else {
+        await updateInvoice(editingId, form);
       }
       setModalMode(null);
       setEditingId(null);
       setForm(EMPTY_FORM);
       await loadAll();
+
+      // A freshly created invoice opens straight into the PDF preview.
+      if (wasCreate) setPdfTarget(snapshot);
     } catch (err) {
       console.error(err);
       setFormError("Could not save invoice.");
@@ -280,6 +300,13 @@ function Invoices() {
                   </span>
                 </div>
                 <div className="inv-cell inv-cell-actions">
+                  <button
+                    className="inv-action-btn"
+                    onClick={() => setPdfTarget(inv)}
+                    title="Open print / PDF preview"
+                  >
+                    PDF
+                  </button>
                   <button
                     className="inv-action-btn"
                     onClick={() => openEdit(inv)}
@@ -618,6 +645,16 @@ function Invoices() {
             </div>
           </div>
         </div>
+      )}
+
+      {pdfTarget && (
+        <InvoiceDocument
+          invoice={pdfTarget}
+          client={clientById(pdfTarget.clientId)}
+          project={projectById(pdfTarget.projectId)}
+          contract={contractById(pdfTarget.contractId)}
+          onClose={() => setPdfTarget(null)}
+        />
       )}
     </AppLayout>
   );

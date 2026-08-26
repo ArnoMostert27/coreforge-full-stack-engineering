@@ -1,0 +1,228 @@
+/* src/components/InvoiceDocument.css
+   The invoice renders as light "paper" both on screen and in print, so the
+   preview is exactly what Save-as-PDF produces. */
+
+.inv-doc-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px;
+  z-index: 900;
+  overflow: auto;
+}
+
+.inv-doc-shell {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inv-doc-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.inv-doc-bar-title {
+  font-family: var(--cf-font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--cf-text-dim);
+}
+.inv-doc-bar-actions { display: flex; gap: 8px; }
+.inv-doc-btn {
+  background: transparent;
+  border: 1px solid var(--cf-border-2);
+  border-radius: var(--cf-radius-sm);
+  color: var(--cf-text-muted);
+  font-family: var(--cf-font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+.inv-doc-btn:hover { color: var(--cf-accent); border-color: var(--cf-accent); }
+.inv-doc-btn-primary {
+  background: var(--cf-accent);
+  border-color: var(--cf-accent);
+  color: #0e1013;
+}
+.inv-doc-btn-primary:hover { background: var(--cf-accent-2); border-color: var(--cf-accent-2); color: #0e1013; }
+
+.inv-doc-hint { font-size: 11px; color: var(--cf-text-dim); }
+.inv-doc-hint strong { color: var(--cf-text-muted); }
+
+.inv-doc-scroll { overflow: auto; }
+
+/* ---------- The paper ---------- */
+
+.inv-doc {
+  background: #ffffff;
+  color: #1a1d21;
+  font-family: var(--cf-font-sans, system-ui, sans-serif);
+  font-size: 12.5px;
+  line-height: 1.55;
+  padding: 40px 44px;
+  border-radius: 4px;
+  min-width: 700px;
+}
+
+.inv-doc table { width: 100%; border-collapse: collapse; }
+.doc-muted { color: #6b7280; }
+.doc-prewrap { white-space: pre-wrap; }
+
+.doc-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  padding-bottom: 22px;
+  border-bottom: 2px solid #1a1d21;
+}
+.doc-brand-name { font-size: 24px; font-weight: 700; letter-spacing: -0.4px; }
+.doc-brand-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #d1531a;
+  margin-top: 2px;
+}
+.doc-brand-meta { margin-top: 12px; font-size: 11.5px; color: #4b5563; }
+
+.doc-title-block { text-align: right; flex: none; }
+.doc-title {
+  font-size: 26px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: #d1531a;
+  line-height: 1;
+}
+.doc-number { margin-top: 4px; font-size: 13px; font-weight: 600; }
+.doc-meta-table { margin-top: 12px; width: auto; margin-left: auto; }
+.doc-meta-table td { padding: 2px 0; font-size: 11.5px; }
+.doc-meta-table td:first-child { color: #6b7280; padding-right: 16px; text-align: left; }
+.doc-meta-table td:last-child { text-align: right; font-weight: 500; }
+
+.doc-parties { display: flex; gap: 48px; padding: 22px 0; }
+.doc-party { flex: 1; min-width: 0; }
+.doc-party-label {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+.doc-party-name { font-size: 14px; font-weight: 600; }
+.doc-party-meta { margin-top: 3px; font-size: 11.5px; color: #4b5563; }
+
+.doc-lines { margin-top: 6px; }
+.doc-lines thead th {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #6b7280;
+  font-weight: 600;
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid #1a1d21;
+}
+.doc-lines tbody td {
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+  vertical-align: top;
+}
+.col-qty, .col-price, .col-total { text-align: right; white-space: nowrap; }
+.doc-lines thead .col-qty,
+.doc-lines thead .col-price,
+.doc-lines thead .col-total { text-align: right; }
+.col-desc { width: 55%; }
+.col-total { font-weight: 600; }
+
+.doc-totals-wrap { display: flex; justify-content: flex-end; margin-top: 18px; }
+.doc-totals { width: 300px; }
+.doc-totals td { padding: 5px 0; font-size: 12.5px; }
+.doc-totals td:last-child { text-align: right; white-space: nowrap; }
+.doc-totals td:first-child { color: #4b5563; }
+.doc-grand td {
+  border-top: 2px solid #1a1d21;
+  padding-top: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1d21;
+}
+
+.doc-blocks {
+  display: flex;
+  gap: 40px;
+  margin-top: 34px;
+  padding-top: 18px;
+  border-top: 1px solid #e5e7eb;
+}
+.doc-block { flex: 1; min-width: 0; }
+.doc-block-label {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+.doc-block-body { font-size: 11.5px; color: #374151; }
+.doc-terms { margin-top: 8px; font-style: italic; color: #6b7280; }
+
+.doc-footer {
+  margin-top: 26px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 10.5px;
+  color: #6b7280;
+  text-align: center;
+}
+
+/* ---------- Print isolation ---------- */
+
+@media print {
+  @page { size: A4; margin: 14mm; }
+
+  html, body { background: #fff !important; }
+
+  /* Hide the whole app, then bring only the invoice back. */
+  body * { visibility: hidden !important; }
+  .inv-doc, .inv-doc * { visibility: visible !important; }
+
+  .inv-doc-noprint { display: none !important; }
+
+  .inv-doc-overlay {
+    position: static !important;
+    inset: auto !important;
+    background: none !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+  .inv-doc-shell { max-width: none !important; gap: 0 !important; }
+  .inv-doc-scroll { overflow: visible !important; }
+
+  .inv-doc {
+    position: absolute !important;
+    left: 0;
+    top: 0;
+    width: 100%;
+    min-width: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font-size: 11.5px;
+  }
+
+  .doc-lines tbody tr { page-break-inside: avoid; }
+  .doc-totals-wrap, .doc-blocks { page-break-inside: avoid; }
+}
