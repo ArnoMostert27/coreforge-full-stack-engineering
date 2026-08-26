@@ -60,6 +60,8 @@
 
 .inv-doc-hint { font-size: 11px; color: var(--cf-text-dim); }
 .inv-doc-hint strong { color: var(--cf-text-muted); }
+.inv-doc-hint-error { color: var(--cf-error); }
+.inv-doc-btn:disabled { opacity: 0.55; cursor: not-allowed; }
 
 .inv-doc-scroll { overflow: auto; }
 

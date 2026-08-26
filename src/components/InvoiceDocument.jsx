@@ -1,12 +1,14 @@
 // src/components/InvoiceDocument.jsx
-// Print-ready invoice document. Rendered inside a modal on screen and isolated
-// by InvoiceDocument.css when the browser prints, so "Save as PDF" produces
-// exactly what is shown here.
+// Invoice preview with two exits:
+//   Print        — window.print(), isolated by InvoiceDocument.css
+//   Download PDF — builds a real vector PDF file via utils/invoicePdf.js
 
+import { useState } from "react";
 import { COMPANY } from "../companyProfile";
 import { toDisplay } from "../utils/dates";
 import { formatMoney } from "../utils/money";
 import { calculateInvoice, lineTotal } from "../utils/invoice";
+import { downloadInvoicePdf } from "../utils/invoicePdf";
 import "./InvoiceDocument.css";
 
 function has(v) {
@@ -14,7 +16,23 @@ function has(v) {
 }
 
 function InvoiceDocument({ invoice, client, project, contract, onClose }) {
+  const [downloading, setDownloading] = useState(false);
+  const [downloadError, setDownloadError] = useState("");
+
   if (!invoice) return null;
+
+  function handleDownload() {
+    setDownloadError("");
+    setDownloading(true);
+    try {
+      downloadInvoicePdf({ invoice, client, project, contract });
+    } catch (err) {
+      console.error(err);
+      setDownloadError("Could not build the PDF. Use Print instead.");
+    } finally {
+      setDownloading(false);
+    }
+  }
 
   const currency = invoice.currency || "ZAR";
   const lines =
@@ -42,23 +60,35 @@ function InvoiceDocument({ invoice, client, project, contract, onClose }) {
       <div className="inv-doc-shell" onClick={(e) => e.stopPropagation()}>
         <div className="inv-doc-bar inv-doc-noprint">
           <div className="inv-doc-bar-title">
-            Invoice {invoice.invoiceNumber} — print preview
+            Invoice {invoice.invoiceNumber} — preview
           </div>
           <div className="inv-doc-bar-actions">
             <button className="inv-doc-btn" onClick={onClose}>
               Close
             </button>
+            <button className="inv-doc-btn" onClick={() => window.print()}>
+              Print
+            </button>
             <button
               className="inv-doc-btn inv-doc-btn-primary"
-              onClick={() => window.print()}
+              onClick={handleDownload}
+              disabled={downloading}
             >
-              Download PDF
+              {downloading ? "Building…" : "Download PDF"}
             </button>
           </div>
         </div>
 
         <div className="inv-doc-hint inv-doc-noprint">
-          In the print dialog choose <strong>Destination → Save as PDF</strong>.
+          {downloadError ? (
+            <span className="inv-doc-hint-error">{downloadError}</span>
+          ) : (
+            <>
+              <strong>Download PDF</strong> saves{" "}
+              {invoice.invoiceNumber || "invoice"}.pdf straight to your computer.{" "}
+              <strong>Print</strong> opens the browser print dialog.
+            </>
+          )}
         </div>
 
         <div className="inv-doc-scroll">
